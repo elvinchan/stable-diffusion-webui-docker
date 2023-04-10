@@ -36,7 +36,7 @@ git reset --hard 4463124bddd221c333d4c70e73aa2949ad35453d
 pip install .
 EOF
 
-ARG BRANCH=main SHA=4463124bddd221c333d4c70e73aa2949ad35453d
+ARG BRANCH=main SHA=f05095770c0b41fefc85f486a60b8df4f86de354
 RUN --mount=type=cache,target=/root/.cache/pip <<EOF
 git fetch
 git reset --hard
@@ -54,9 +54,9 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . /docker/
 
 
-ENV PYTHONUNBUFFERED=1 PYTHONPATH="${PYTHONPATH}:${ROOT}" PRELOAD=false HF_HOME=/root/.cache/huggingface CLI_ARGS=""
+ENV PYTHONUNBUFFERED=1 PRELOAD=false HF_HOME=/root/.cache/huggingface CONFIG_DIR=/data/config/invoke CLI_ARGS=""
 EXPOSE 7860
 
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD invokeai --web --host 0.0.0.0 --port 7860 --root_dir ${ROOT} --outdir /output/invoke ${CLI_ARGS}
+CMD invokeai --web --host 0.0.0.0 --port 7860 --root_dir ${ROOT} --config ${CONFIG_DIR}/models.yaml --outdir /output/invoke ${CLI_ARGS}
 # TODO: make sure the config is persisted between sessions

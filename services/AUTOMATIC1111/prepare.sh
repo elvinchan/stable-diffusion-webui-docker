@@ -17,3 +17,4 @@ pip install -U https://github.com/huchenlei/Depth-Anything/releases/download/v1.
 # adetailer
 pip install ultralytics>=8.1.18
 pip install rich>=13.0.0
+

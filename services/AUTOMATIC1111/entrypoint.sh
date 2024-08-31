@@ -2,6 +2,11 @@
 
 set -Eeuo pipefail
 
+if [ -f "/sd-data/init.sh" ]; then
+  echo "Running init script"
+  chmod +x /sd-data/init.sh && /sd-data/init.sh
+fi
+
 # TODO: move all mkdir -p ?
 mkdir -p /data/config/auto/scripts/
 # mount scripts individually

@@ -2,3 +2,5 @@
 /config
 /embeddings
 /models
+*.log
+CORE_UUID

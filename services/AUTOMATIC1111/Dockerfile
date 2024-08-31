@@ -50,7 +50,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # there seems to be a memory leak (or maybe just memory not being freed fast enough) that is fixed by this version of malloc
 # maybe move this up to the dependencies list.
-RUN apt-get -y install libgoogle-perftools-dev && apt-get clean
+RUN apt-get -y install libgoogle-perftools-dev pigz && apt-get clean
 ENV LD_PRELOAD=libtcmalloc.so
 
 COPY . /docker
@@ -61,9 +61,7 @@ RUN \
   sed -i 's/in_app_dir = .*/in_app_dir = True/g' /opt/conda/lib/python3.10/site-packages/gradio/routes.py && \
   git config --global --add safe.directory '*'
 
-RUN chmod +x /docker/startup.sh && /docker/startup.sh
-
-RUN apt-get -y install pigz && apt-get clean
+RUN chmod +x /docker/prepare.sh && /docker/prepare.sh
 
 WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all

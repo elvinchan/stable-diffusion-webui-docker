@@ -9,12 +9,15 @@ RUN --mount=type=cache,target=/root/.cache/pip \
   git clone https://github.com/comfyanonymous/ComfyUI.git ${ROOT} && \
   cd ${ROOT} && \
   git checkout master && \
-  git reset --hard 276f8fce9f5a80b500947fb5745a4dde9e84622d && \
+  git reset --hard v0.2.2 && \
   pip install -r requirements.txt
 
 WORKDIR ${ROOT}
 COPY . /docker/
 RUN chmod u+x /docker/entrypoint.sh && cp /docker/extra_model_paths.yaml ${ROOT}
+
+RUN apt-get update && apt-get install -y g++ libgl1 libglib2.0-0 && apt-get clean
+RUN chmod +x /docker/prepare.sh && /docker/prepare.sh
 
 ENV NVIDIA_VISIBLE_DEVICES=all PYTHONPATH="${PYTHONPATH}:${PWD}" CLI_ARGS=""
 EXPOSE 7860

@@ -15,6 +15,10 @@ a111:
   gligen: models/GLIGEN
   clip: models/CLIPEncoder
   embeddings: embeddings
+  unet: models/unet
+  xlabs: models/xlabs
+  facerestore_models: models/facerestore_models
+  insightface: models/insightface
 
   custom_nodes: config/comfy/custom_nodes
 

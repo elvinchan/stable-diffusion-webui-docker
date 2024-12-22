@@ -26,6 +26,6 @@ pip install \
   onnxruntime-gpu
 
 ENV NVIDIA_VISIBLE_DEVICES=all PYTHONPATH="${PYTHONPATH}:${PWD}" CLI_ARGS=""
-EXPOSE 7860
+EXPOSE 7861
 ENTRYPOINT ["/docker/entrypoint.sh"]
-CMD python -u main.py --listen --port 7860 ${CLI_ARGS}
+CMD python -u main.py --listen --port 7861 ${CLI_ARGS}

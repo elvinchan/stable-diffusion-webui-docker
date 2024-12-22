@@ -2,6 +2,11 @@
 
 set -Eeuo pipefail
 
+if [ -f "/sd-data/init.sh" ]; then
+  echo "Running init script"
+  chmod +x /sd-data/init.sh && /sd-data/init.sh
+fi
+
 mkdir -vp /data/config/comfy/custom_nodes
 
 declare -A MOUNTS

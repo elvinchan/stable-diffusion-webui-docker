@@ -2,22 +2,28 @@ FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-runtime
 
 ENV DEBIAN_FRONTEND=noninteractive PIP_PREFER_BINARY=1
 
-RUN apt-get update && apt-get install -y git && apt-get clean
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  git g++ libgl1 libglib2.0-0 pigz \
+  && rm -rf /var/lib/apt/lists/*
 
 ENV ROOT=/stable-diffusion
-RUN --mount=type=cache,target=/root/.cache/pip \
-  git clone https://github.com/comfyanonymous/ComfyUI.git ${ROOT} && \
-  cd ${ROOT} && \
-  git checkout master && \
-  git reset --hard v0.2.2 && \
-  pip install -r requirements.txt
+RUN git clone --branch v0.3.7 --depth 1 https://github.com/comfyanonymous/ComfyUI.git ${ROOT}
 
 WORKDIR ${ROOT}
 COPY . /docker/
 RUN chmod u+x /docker/entrypoint.sh && cp /docker/extra_model_paths.yaml ${ROOT}
 
-RUN apt-get update && apt-get install -y g++ libgl1 libglib2.0-0 && apt-get clean
-RUN chmod +x /docker/prepare.sh && /docker/prepare.sh
+RUN --mount=type=cache,target=/root/.cache/pip \
+pip install \
+  -r ${ROOT}/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/2.55.5/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/yolain/ComfyUI-Easy-Use/v1.2.5/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/Gourieff/comfyui-reactor-node/v0.5.1/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/Fannovel16/comfyui_controlnet_aux/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/city96/ComfyUI-GGUF/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/adieyal/comfyui-dynamicprompts/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/XLabs-AI/x-flux-comfyui/main/requirements.txt \
+  onnxruntime-gpu
 
 ENV NVIDIA_VISIBLE_DEVICES=all PYTHONPATH="${PYTHONPATH}:${PWD}" CLI_ARGS=""
 EXPOSE 7860

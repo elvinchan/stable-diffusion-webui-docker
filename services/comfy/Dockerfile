@@ -17,12 +17,19 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 pip install \
   -r ${ROOT}/requirements.txt \
   -r https://gh-proxy.com/raw.githubusercontent.com/ltdrdata/ComfyUI-Manager/2.55.5/requirements.txt \
-  -r https://gh-proxy.com/raw.githubusercontent.com/yolain/ComfyUI-Easy-Use/v1.2.5/requirements.txt \
-  -r https://gh-proxy.com/raw.githubusercontent.com/Gourieff/comfyui-reactor-node/v0.5.1/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/yolain/ComfyUI-Easy-Use/v1.2.7/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/Gourieff/ComfyUI-ReActor/refs/heads/main/requirements.txt \
   -r https://gh-proxy.com/raw.githubusercontent.com/Fannovel16/comfyui_controlnet_aux/main/requirements.txt \
   -r https://gh-proxy.com/raw.githubusercontent.com/city96/ComfyUI-GGUF/main/requirements.txt \
   -r https://gh-proxy.com/raw.githubusercontent.com/adieyal/comfyui-dynamicprompts/main/requirements.txt \
   -r https://gh-proxy.com/raw.githubusercontent.com/XLabs-AI/x-flux-comfyui/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/elvinchan/ComfyUI_CatVTON_Wrapper/refs/heads/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/chflame163/ComfyUI_LayerStyle/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/chflame163/ComfyUI_LayerStyle_Advance/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/ltdrdata/ComfyUI-Inspire-Pack/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/cubiq/ComfyUI_essentials/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/kijai/ComfyUI-KJNodes/main/requirements.txt \
+  -r https://gh-proxy.com/raw.githubusercontent.com/kijai/ComfyUI-SUPIR/main/requirements.txt \
   onnxruntime-gpu
 
 ENV NVIDIA_VISIBLE_DEVICES=all PYTHONPATH="${PYTHONPATH}:${PWD}" CLI_ARGS=""
